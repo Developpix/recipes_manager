@@ -29,3 +29,10 @@ hs_err_pid*
 
 # Dia files
 *.dia
+
+# Pencil files
+*.epgz
+
+# Eclipse conf files
+.classpath
+.project

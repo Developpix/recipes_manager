@@ -37,3 +37,6 @@ hs_err_pid*
 .classpath
 .project
 .settings
+
+# SQL files
+*.sql

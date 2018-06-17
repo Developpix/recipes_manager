@@ -11,6 +11,13 @@ public class RecipeIngredientAssociation {
 	private int numRecipe, numIngredient, quantity;
 	private String unit;
 	
+	/**
+	 * Constructor the class create a association between a recipe and an ingredient
+	 * @param numRecipe the id of the recipe
+	 * @param numIngredient the id of the ingredient
+	 * @param quantity the quantity of ingredient
+	 * @param unit the unit of the quantity
+	 */
 	public RecipeIngredientAssociation(int numRecipe, int numIngredient, int quantity, String unit) {
 		this.numRecipe = numRecipe;
 		this.numIngredient = numIngredient;
@@ -18,26 +25,50 @@ public class RecipeIngredientAssociation {
 		this.unit = unit;
 	}
 
+	/**
+	 * Getter to get the quantity of ingredient associated
+	 * @return the quantity
+	 */
 	public int getQuantity() {
 		return quantity;
 	}
 
+	/**
+	 * Setter to change the quantity of ingredient associated
+	 * @param quantity the new quantity
+	 */
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
 
+	/**
+	 * Getter to get the unity of the quantity
+	 * @return the unit
+	 */
 	public String getUnit() {
 		return unit;
 	}
 
+	/**
+	 * Setter to change the unity of the quantity
+	 * @param unit the new unit
+	 */
 	public void setUnit(String unit) {
 		this.unit = unit;
 	}
 
+	/**
+	 * Getter to get the id of the recipe
+	 * @return the id of the recipe
+	 */
 	public int getNumRecipe() {
 		return numRecipe;
 	}
 
+	/**
+	 * Getter to get the id of the ingredient
+	 * @return the id of the ingredient
+	 */
 	public int getNumIngredient() {
 		return numIngredient;
 	}
@@ -67,7 +98,10 @@ public class RecipeIngredientAssociation {
 		return true;
 	}
 
-	@Override
+	/**
+	 * Convert the association in a string
+	 * @return the string corresponding to the association
+	 */
 	public String toString() {
 		return "RecipeIngredientAssociation [numRecipe=" + numRecipe + ", numIngredient=" + numIngredient
 				+ ", quantity=" + quantity + ", unit=" + unit + "]";

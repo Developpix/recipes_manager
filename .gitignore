@@ -40,3 +40,6 @@ hs_err_pid*
 
 # SQL files
 *.sql
+
+# Package which contains the test class
+src/tests/*

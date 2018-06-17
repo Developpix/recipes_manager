@@ -16,7 +16,7 @@ public class SessionMySQL implements SessionDatabase {
 		
 		try {
 			
-			DriverManager.registerDriver(new org.mysql.jdbc.Driver());
+			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
 			connection = DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+databaseName, user, passwd);
 			
 			System.out.println("connexion réussi");

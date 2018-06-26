@@ -1,5 +1,5 @@
 /**
- * Class to manipulate the table which contains the list of the recipes
+ * Class to manipulate the table which contains the list of the steps
  * @author Developpix
  * @version 0.1
  */
@@ -18,7 +18,7 @@ public class DAOStep {
 	private SessionDatabase session;
 
 	/**
-	 * DAORecipe's constructor take a session to a database
+	 * DAOStep's constructor take a session to a database
 	 * @param session a instance of a class which implements the interface SessionDatabase
 	 */
 	public DAOStep(SessionDatabase session) {

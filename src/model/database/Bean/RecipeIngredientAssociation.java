@@ -9,7 +9,7 @@ package model.database.Bean;
 public class RecipeIngredientAssociation {
 	
 	private int numRecipe, numIngredient, quantity;
-	private Unit unit;
+	private String unit;
 	
 	/**
 	 * Constructor the class create a association between a recipe and an ingredient
@@ -18,7 +18,7 @@ public class RecipeIngredientAssociation {
 	 * @param quantity the quantity of ingredient
 	 * @param unit the unit of the quantity
 	 */
-	public RecipeIngredientAssociation(int numRecipe, int numIngredient, int quantity, Unit unit) {
+	public RecipeIngredientAssociation(int numRecipe, int numIngredient, int quantity, String unit) {
 		this.numRecipe = numRecipe;
 		this.numIngredient = numIngredient;
 		this.quantity = quantity;
@@ -45,7 +45,7 @@ public class RecipeIngredientAssociation {
 	 * Getter to get the unity of the quantity
 	 * @return the unit
 	 */
-	public Unit getUnit() {
+	public String getUnit() {
 		return unit;
 	}
 
@@ -53,7 +53,7 @@ public class RecipeIngredientAssociation {
 	 * Setter to change the unity of the quantity
 	 * @param unit the new unit
 	 */
-	public void setUnit(Unit unit) {
+	public void setUnit(String unit) {
 		this.unit = unit;
 	}
 

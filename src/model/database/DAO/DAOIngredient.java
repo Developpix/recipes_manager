@@ -1,5 +1,5 @@
 /**
- * Class to manipulate the table which contains the list of the recipes
+ * Class to manipulate the table which contains the list of the ingredients
  * @author Developpix
  * @version 0.1
  */
@@ -18,7 +18,7 @@ public class DAOIngredient {
 	private SessionDatabase session;
 
 	/**
-	 * DAORecipe's constructor take a session to a database
+	 * DAOIngredient's constructor take a session to a database
 	 * @param session a instance of a class which implements the interface SessionDatabase
 	 */
 	public DAOIngredient(SessionDatabase session) {

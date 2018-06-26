@@ -1,2 +1,4 @@
 model.database.BD
 model.database.Bean
+model.database.DAO
+tests

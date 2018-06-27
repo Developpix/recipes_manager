@@ -80,7 +80,7 @@ public class Ingredient {
 	 * @return the string corresponding to the ingredient
 	 */
 	public String toString() {
-		return "Ingredient [numIngredient=" + numIngredient + ", name=" + name + "]";
+		return this.name;
 	}
 	
 }

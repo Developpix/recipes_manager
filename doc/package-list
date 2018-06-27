@@ -1,4 +1,9 @@
+
+hmi.controllers
+hmi.views
+model
 model.database.BD
 model.database.Bean
 model.database.DAO
+model.files
 tests

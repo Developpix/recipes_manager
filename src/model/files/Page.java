@@ -1,3 +1,10 @@
+/**
+ * Class to create a Page which is contained in a CookBook. A Page is linked to a recipe
+ * and contains all informations about this recipe
+ * @author Developpix
+ * @version 0.1
+ */
+
 package model.files;
 
 import java.util.HashMap;

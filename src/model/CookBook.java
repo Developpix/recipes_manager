@@ -1,3 +1,9 @@
+/**
+ * Class to create a CookBook which is a book which contains a list of Pages.
+ * @author Developpix
+ * @version 0.1
+ */
+
 package model;
 
 import java.io.File;

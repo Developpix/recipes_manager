@@ -44,8 +44,17 @@ public class DAORecipe {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
-			
+			// If the table doesn't exist, we create the table and create the recipe
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				create(recipe);
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 		}
 		
 	}
@@ -68,8 +77,16 @@ public class DAORecipe {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
-			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 		}
 		
 	}
@@ -91,8 +108,16 @@ public class DAORecipe {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
-			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 		}
 		
 	}
@@ -122,12 +147,14 @@ public class DAORecipe {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage() + e.getErrorCode());
 			// If the table doesn't exist, we create the table
 			if(e.getErrorCode() == 1146) {
 				
 				createTable();
-				list = read();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
 				
 			}
 			
@@ -167,13 +194,14 @@ public class DAORecipe {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
-			
 			// If the table doesn't exist, we create the table
 			if(e.getErrorCode() == 1146) {
 				
 				createTable();
-				list = read(ingredient);
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
 				
 			}
 			
@@ -205,7 +233,7 @@ public class DAORecipe {
 			
 		} catch (SQLException e) {
 			
-			System.out.println(e.getMessage());
+			System.out.println("Erreur SQL -> " + e.getMessage());
 			
 		}
 		

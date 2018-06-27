@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import hmi.views.ManageRecipesView;
 import hmi.views.WelcomeView;
 import model.CookBook;
 import model.database.BD.SessionDatabase;
@@ -58,6 +59,13 @@ public class ConnectionDatabaseController implements ActionListener {
 			CookBook cookBook = new CookBook(sessionDatabase);
 			// Load data for the model
 			cookBook.load();
+			
+			// Close the curent view
+			this.view.setVisible(false);
+			this.view.dispose();
+			
+			// Load the next view
+			new ManageRecipesView(cookBook);
 		
 		} catch (SQLException e) {
 		

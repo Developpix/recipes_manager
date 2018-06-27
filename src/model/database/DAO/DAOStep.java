@@ -46,7 +46,17 @@ public class DAOStep {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
+			// If the table doesn't exist, we create the table and create the step
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				create(step);
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 			
 		}
 		
@@ -71,7 +81,16 @@ public class DAOStep {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 			
 		}
 		
@@ -95,7 +114,16 @@ public class DAOStep {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 			
 		}
 		
@@ -126,8 +154,16 @@ public class DAOStep {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
-			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 		}
 		
 		return list;
@@ -162,11 +198,50 @@ public class DAOStep {
 			
 		} catch (SQLException e) {
 			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
+		}
+		
+		return list;
+		
+	}
+	
+	/**
+	 * Method to create the table Step
+	 */
+	public void createTable() {
+		
+		String createTable = "CREATE OR REPLACE TABLE Step (\n" + 
+				"	numStep INT(4),\n" + 
+				"	text TEXT,\n" + 
+				"	numRecipe INT(4),\n" + 
+				"	CONSTRAINT PK_Step PRIMARY KEY (numStep, numRecipe),\n" + 
+				"	CONSTRAINT FK_numRecipe FOREIGN KEY (numRecipe)\n" + 
+				"		REFERENCES Recipe(numRecipe)\n" + 
+				")";
+		
+		try {
+			
+			Statement stmt = this.session.getConnection().createStatement();
+			
+			stmt.executeQuery(createTable);
+			
+			stmt.close();
+			
+		} catch (SQLException e) {
+			
 			System.out.println("Erreur SQL -> " + e.getMessage());
 			
 		}
 		
-		return list;
 		
 	}
 	

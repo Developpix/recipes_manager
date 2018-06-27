@@ -122,7 +122,14 @@ public class DAORecipe {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
+			System.out.println("Erreur SQL -> " + e.getMessage() + e.getErrorCode());
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				list = read();
+				
+			}
 			
 		}
 		
@@ -162,9 +169,46 @@ public class DAORecipe {
 			
 			System.out.println("Erreur SQL -> " + e.getMessage());
 			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				list = read(ingredient);
+				
+			}
+			
+			
 		}
 		
 		return list;
+		
+	}
+	
+	/**
+	 * Method to create the table recipe
+	 */
+	public void createTable() {
+		
+		String createTable = "CREATE OR REPLACE TABLE Recipe (\n" + 
+				"	numRecipe INT(4),\n" + 
+				"	name VARCHAR(255),\n" + 
+				"	CONSTRAINT PK_Recipe PRIMARY KEY (numRecipe)\n" + 
+				")";
+		
+		try {
+			
+			Statement stmt = this.session.getConnection().createStatement();
+			
+			stmt.executeQuery(createTable);
+			
+			stmt.close();
+			
+		} catch (SQLException e) {
+			
+			System.out.println(e.getMessage());
+			
+		}
+		
 		
 	}
 	

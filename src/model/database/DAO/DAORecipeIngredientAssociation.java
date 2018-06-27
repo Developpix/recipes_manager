@@ -196,7 +196,11 @@ public class DAORecipeIngredientAssociation {
 			pstmt.setInt(2, ingredient.getNumIngredient());
 			ResultSet res = pstmt.executeQuery();
 			
-			association = new RecipeIngredientAssociation(res.getInt(1), res.getInt(2), res.getInt(3), res.getString(2));
+			while(res.next()) {
+				
+				association = new RecipeIngredientAssociation(res.getInt(1), res.getInt(2), res.getInt(3), res.getString(4));
+				
+			}
 			
 			pstmt.close();
 			

@@ -92,7 +92,7 @@ public class ManageRecipesView extends JFrame {
 		// Add a JLabel, to show that here it's the list of ingredients, to the north
 		panelManageIngredients.add(new JLabel("Ingredients", JLabel.CENTER), BorderLayout.NORTH);
 		// Add a JList which contains the list of ingredient associate to the recipe
-		if(this.model.getSize() >= 0)
+		if(this.model.getSize() > 0)
 			this.listIngredients = new JList<>(this.model.getElementAt(0));
 		// If model contains 0 pages the JList is empty
 		else

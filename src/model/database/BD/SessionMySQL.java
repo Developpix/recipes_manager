@@ -17,8 +17,6 @@ public class SessionMySQL implements SessionDatabase {
 		DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 		connection = DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+databaseName, user, passwd);
 		
-		System.out.println("connexion réussi");
-		
 	}
 
 	/**
@@ -33,20 +31,11 @@ public class SessionMySQL implements SessionDatabase {
 	
 	/**
 	 * Method to close the connection
+	 * @throws SQLException throw a SQLException when there is a problem with the database
 	 */
-	public void closeConnection() {
+	public void closeConnection() throws SQLException {
 		
-		try {
-			
-			this.connection.close();
-			System.out.println("Déconnexion réussi");
-			
-		} catch (SQLException erreur) {
-
-			System.out.println("Déconnexion échoué");
-			System.out.println(erreur.getErrorCode() + " " + erreur.getMessage());
-			
-		}
+		this.connection.close();
 		
 	}
 	

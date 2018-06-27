@@ -18,7 +18,8 @@ public interface SessionDatabase {
 	
 	/**
 	 * Method to close the connection
+	 * @throws SQLException throw a SQLException when there is a problem with the database
 	 */
-	public void closeConnection();
+	public void closeConnection() throws SQLException;
 	
 }

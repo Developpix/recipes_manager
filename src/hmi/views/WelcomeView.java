@@ -1,3 +1,9 @@
+/**
+ * The Welcome view which is the first window
+ * @author Developpix
+ * @version 0.1
+ */
+
 package hmi.views;
 
 import java.awt.BorderLayout;

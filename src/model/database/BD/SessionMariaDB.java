@@ -12,20 +12,12 @@ public class SessionMariaDB implements SessionDatabase {
 
 	private Connection connection;
 	
-	public SessionMariaDB(String host, int port, String databaseName, String user, String passwd) {
+	public SessionMariaDB(String host, int port, String databaseName, String user, String passwd) throws SQLException {
 		
-		try {
-			
-			DriverManager.registerDriver(new org.mariadb.jdbc.Driver());
-			connection = DriverManager.getConnection("jdbc:mariadb://"+host+":"+port+"/"+databaseName, user, passwd);
-			
-			System.out.println("connexion réussi");
-			
-		} catch(SQLException e) {
-			
-			System.out.println("connexion échouée");
-			
-		}
+		DriverManager.registerDriver(new org.mariadb.jdbc.Driver());
+		connection = DriverManager.getConnection("jdbc:mariadb://"+host+":"+port+"/"+databaseName, user, passwd);
+		
+		System.out.println("connexion réussi");
 		
 	}
 

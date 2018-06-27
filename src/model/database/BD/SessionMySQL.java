@@ -12,20 +12,12 @@ public class SessionMySQL implements SessionDatabase {
 
 	private Connection connection;
 	
-	public SessionMySQL(String host, int port, String databaseName, String user, String passwd) {
+	public SessionMySQL(String host, int port, String databaseName, String user, String passwd) throws SQLException {
+			
+		DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+		connection = DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+databaseName, user, passwd);
 		
-		try {
-			
-			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-			connection = DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+databaseName, user, passwd);
-			
-			System.out.println("connexion réussi");
-			
-		} catch(SQLException e) {
-			
-			System.out.println("connexion échouée");
-			
-		}
+		System.out.println("connexion réussi");
 		
 	}
 

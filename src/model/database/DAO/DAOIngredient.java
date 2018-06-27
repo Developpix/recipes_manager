@@ -44,8 +44,17 @@ public class DAOIngredient {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
-			
+			// If the table doesn't exist, we create the table and create ingredient
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				create(ingredient);
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 		}
 		
 	}
@@ -68,8 +77,16 @@ public class DAOIngredient {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
-			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 		}
 		
 	}
@@ -91,8 +108,16 @@ public class DAOIngredient {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
-			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 		}
 		
 	}
@@ -122,8 +147,16 @@ public class DAOIngredient {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
-			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 		}
 		
 		return list;
@@ -160,11 +193,48 @@ public class DAOIngredient {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 			
 		}
 		
 		return list;
+		
+	}
+	
+	/**
+	 * Method to create the table Ingredient
+	 */
+	public void createTable() {
+		
+		String createTable = "CREATE OR REPLACE TABLE Ingredient (\n" + 
+				"	numIngredient INT(4),\n" + 
+				"	name VARCHAR(255),\n" + 
+				"	CONSTRAINT PK_Ingredient PRIMARY KEY (numIngredient)\n" + 
+				")";
+		
+		try {
+			
+			Statement stmt = this.session.getConnection().createStatement();
+			
+			stmt.executeQuery(createTable);
+			
+			stmt.close();
+			
+		} catch (SQLException e) {
+			
+			System.out.println("Erreur SQL -> " + e.getMessage());
+			
+		}
+		
 		
 	}
 	

@@ -47,7 +47,17 @@ public class DAORecipeIngredientAssociation {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
+			// If the table doesn't exist, we create the table and create the association
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				create(association);
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 			
 		}
 		
@@ -74,7 +84,16 @@ public class DAORecipeIngredientAssociation {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 			
 		}
 		
@@ -99,7 +118,16 @@ public class DAORecipeIngredientAssociation {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 			
 		}
 		
@@ -130,8 +158,16 @@ public class DAORecipeIngredientAssociation {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
-			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 		}
 		
 		return list;
@@ -167,8 +203,16 @@ public class DAORecipeIngredientAssociation {
 			
 		} catch (SQLException e) {
 			
-			System.out.println("Erreur SQL -> " + e.getMessage());
-			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
 		}
 		
 		return list;
@@ -206,11 +250,53 @@ public class DAORecipeIngredientAssociation {
 			
 		} catch (SQLException e) {
 			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
+		}
+		
+		return association;
+		
+	}
+	
+	/**
+	 * Method to create the table RecipeIngredientAssociation
+	 */
+	public void createTable() {
+		
+		String createTable = "CREATE OR REPLACE TABLE RecipeIngredientAssociation (\n" + 
+				"	numRecipe INT(4),\n" + 
+				"	numIngredient INT(4),\n" + 
+				"	quantity INT(4),\n" + 
+				"	unit VARCHAR(255),\n" + 
+				"	CONSTRAINT PK_RecipeIngredientAssociation PRIMARY KEY (numRecipe, numIngredient),\n" + 
+				"	CONSTRAINT FK_numRecipe2 FOREIGN KEY (numRecipe)\n" + 
+				"		REFERENCES Recipe(numRecipe),\n" + 
+				"	CONSTRAINT FK_numIngredient2 FOREIGN KEY (numIngredient)\n" + 
+				"		REFERENCES Ingredient(numIngredient)\n" + 
+				")";
+		
+		try {
+			
+			Statement stmt = this.session.getConnection().createStatement();
+			
+			stmt.executeQuery(createTable);
+			
+			stmt.close();
+			
+		} catch (SQLException e) {
+			
 			System.out.println("Erreur SQL -> " + e.getMessage());
 			
 		}
 		
-		return association;
 		
 	}
 	

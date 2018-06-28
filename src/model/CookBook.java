@@ -55,8 +55,8 @@ public class CookBook extends AbstractListModel<Page> {
 		
 		if(this.dataMod.equals("DATABASE")) {
 			
-			DAORecipe daoRecipe = new DAORecipe(this.sessionDatabase);
-			daoRecipe.create(name);
+			new Page(name, this.sessionDatabase);
+			load();
 			
 		}
 		
@@ -98,11 +98,11 @@ public class CookBook extends AbstractListModel<Page> {
 			
 			DAORecipe daoRecipe = new DAORecipe(this.sessionDatabase);
 			List<Recipe> listOfRecipes = daoRecipe.read();
+			this.listOfPages = new LinkedList<>();
 			
 			for(Recipe recipe : listOfRecipes) {
 			
 				listOfPages.add(new Page(recipe, this.sessionDatabase));
-				System.out.println(this.listOfPages.get(this.listOfPages.size()-1));
 				
 			}
 			

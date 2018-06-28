@@ -31,14 +31,14 @@ public class DAORecipe {
 	 * Method to insert a recipe in the database
 	 * @param recipe the recipe which will be insert
 	 */
-	public void create(Recipe recipe) {
+	public void create(String name) {
 		
 		try {
 			
 			String insertRecipe = "INSERT INTO Recipe (name) VALUES(?)";
 			
 			PreparedStatement pstmt = this.session.getConnection().prepareStatement(insertRecipe);
-			pstmt.setString(1, recipe.getName());
+			pstmt.setString(1, name);
 			pstmt.executeUpdate();
 			pstmt.close();
 			
@@ -48,7 +48,7 @@ public class DAORecipe {
 			if(e.getErrorCode() == 1146) {
 				
 				createTable();
-				create(recipe);
+				create(name);
 				
 			} else {
 
@@ -218,7 +218,7 @@ public class DAORecipe {
 	public void createTable() {
 		
 		String createTable = "CREATE OR REPLACE TABLE Recipe (\n" + 
-				"	numRecipe INT(4),\n" + 
+				"	numRecipe INT(4) AUTO_INCREMENT,\n" + 
 				"	name VARCHAR(255),\n" + 
 				"	CONSTRAINT PK_Recipe PRIMARY KEY (numRecipe)\n" + 
 				")";

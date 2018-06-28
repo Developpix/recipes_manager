@@ -216,7 +216,7 @@ public class DAOIngredient {
 	public void createTable() {
 		
 		String createTable = "CREATE OR REPLACE TABLE Ingredient (\n" + 
-				"	numIngredient INT(4),\n" + 
+				"	numIngredient INT(4) AUTO_INCREMENT,\n" + 
 				"	name VARCHAR(255),\n" + 
 				"	CONSTRAINT PK_Ingredient PRIMARY KEY (numIngredient)\n" + 
 				")";

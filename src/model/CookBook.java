@@ -46,6 +46,21 @@ public class CookBook extends AbstractListModel<Page> {
 		this.saveFile = new File(fileURI);
 		
 	}
+	
+	/**
+	 * Create a Page for a recipe
+	 * @param name the name of the recipe
+	 */
+	public void createPage(String name) {
+		
+		if(this.dataMod.equals("DATABASE")) {
+			
+			DAORecipe daoRecipe = new DAORecipe(this.sessionDatabase);
+			daoRecipe.create(name);
+			
+		}
+		
+	}
 
 	/**
 	 * Method to get a Page at the position specify in the CookBook

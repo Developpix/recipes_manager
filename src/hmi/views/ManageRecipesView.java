@@ -14,10 +14,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import hmi.controllers.AddPageController;
+import hmi.controllers.DeletePageController;
 import model.CookBook;
 import model.database.Bean.Ingredient;
 import model.files.Page;
@@ -77,9 +80,11 @@ public class ManageRecipesView extends JFrame {
 		panelActionsManagePages.setLayout(new GridLayout(1, 2));
 		// Add a button to add a page
 		this.addPage = new JButton("Add");
+		this.addPage.addActionListener(new AddPageController(this, this.model));
 		panelActionsManagePages.add(addPage);
 		// Add a button to delete a page
 		this.delPage = new JButton("Delete");
+		this.delPage.addActionListener(new DeletePageController(this, this.model));
 		panelActionsManagePages.add(delPage);
 		
 		/*
@@ -129,6 +134,35 @@ public class ManageRecipesView extends JFrame {
 		this.setVisible(true);
 		this.pack();
 		
+	}
+	
+	/**
+	 * Method to update the JList of pages
+	 */
+	public void updatePagesList() {
+		
+		this.listPages.updateUI();
+		
+	}
+	
+	/**
+	 * Method to get the Page selected
+	 * @return the Page selected
+	 */
+	public Page getPageSelected() {
+		
+		return this.listPages.getSelectedValue();
+		
+	}
+	
+	/**
+	 * Method to show a window dialog to print an error message
+	 * @param title the title of the window
+	 * @param message the error message
+	 */
+	public void printMessage(String title, String message) {
+		
+		JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
 		
 	}
 	

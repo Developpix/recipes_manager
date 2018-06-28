@@ -20,6 +20,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import hmi.controllers.AddPageController;
+import hmi.controllers.DeleteIngredientController;
 import hmi.controllers.DeletePageController;
 import model.CookBook;
 import model.database.Bean.Ingredient;
@@ -117,6 +118,7 @@ public class ManageRecipesView extends JFrame {
 		panelActionsManageIngredients.add(addIngredient);
 		// Add a button to delete a ingredient
 		this.delIngredient = new JButton("Delete");
+		this.delIngredient.addActionListener(new DeleteIngredientController(this));
 		panelActionsManageIngredients.add(delIngredient);
 		
 		/*
@@ -146,12 +148,31 @@ public class ManageRecipesView extends JFrame {
 	}
 	
 	/**
+	 * Method to update the JList of ingredients
+	 */
+	public void updateIngredientsList() {
+		
+		this.listIngredients.updateUI();
+		
+	}
+	
+	/**
 	 * Method to get the Page selected
 	 * @return the Page selected
 	 */
 	public Page getPageSelected() {
 		
 		return this.listPages.getSelectedValue();
+		
+	}
+	
+	/**
+	 * Method to get the ingredient selected
+	 * @return the ingredient selected
+	 */
+	public Ingredient getIngredientSelected() {
+		
+		return this.listIngredients.getSelectedValue();
 		
 	}
 	

@@ -27,6 +27,7 @@ import model.database.DAO.DAOStep;
 public class Page extends AbstractListModel<Ingredient> {
 
 	private String name;
+	private Recipe recipe;
 	private SessionDatabase sessionDatabase;
 	private List<Ingredient> listOfIngredients;
 	private List<Step> listOfSteps;
@@ -59,6 +60,7 @@ public class Page extends AbstractListModel<Ingredient> {
 		
 		DAORecipe daoRecipe = new DAORecipe(this.sessionDatabase);
 		daoRecipe.create(name);
+		this.recipe = daoRecipe.read(name);
 		
 	}
 	
@@ -68,7 +70,8 @@ public class Page extends AbstractListModel<Ingredient> {
 	 * @param sessionDatabase the session establish to the database
 	 */
 	public Page(Recipe recipe, SessionDatabase sessionDatabase) {
-		
+
+		this.recipe = recipe;
 		this.name = recipe.getName();
 		this.sessionDatabase = sessionDatabase;
 		
@@ -133,6 +136,18 @@ public class Page extends AbstractListModel<Ingredient> {
 		
 		DAORecipe daoRecipe = new DAORecipe(this.sessionDatabase);
 		daoRecipe.delete(this.name);
+		
+	}
+	
+	/**
+	 * Method to remove an association with an ingredient
+	 * @param ingredient the ingredient
+	 */
+	public void deleteIngredient(Ingredient ingredient) {
+		
+		DAORecipeIngredientAssociation daoAssociation = new DAORecipeIngredientAssociation(this.sessionDatabase);
+		RecipeIngredientAssociation association = daoAssociation.read(this.recipe, ingredient);
+		daoAssociation.delete(association);
 		
 	}
 	

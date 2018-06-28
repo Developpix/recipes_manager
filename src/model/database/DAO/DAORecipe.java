@@ -170,6 +170,49 @@ public class DAORecipe {
 	}
 	
 	/**
+	 * Method to get the list of recipes stored in the database
+	 * @param name the name of the recipe
+	 * @return the list of recipes
+	 */
+	public Recipe read(String name) {
+		
+		Recipe recipe = null;
+		
+		try {
+			
+			String selectRecipe = "SELECT * FROM Recipe WHERE name=" + name;
+			
+			Statement stmt = this.session.getConnection().createStatement();
+			ResultSet res = stmt.executeQuery(selectRecipe);
+			
+			while(res.next()) {
+				
+				recipe = new Recipe(res.getInt(1), res.getString(2));
+				
+			}
+			
+			stmt.close();
+			
+		} catch (SQLException e) {
+			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
+			
+		}
+		
+		return recipe;
+		
+	}
+	
+	/**
 	 * Method to get the list of recipes associated to an ingredient
 	 * and stored in the database
 	 * @param ingredient the ingredient

@@ -37,10 +37,28 @@ public class Page extends AbstractListModel<Ingredient> {
 	 * Constructor to create the page which contains a recipe
 	 * @param name the name of the recipe
 	 */
-	public Page(String name, List<Ingredient> ingredients) {
+	public Page(String name) {
 		
 		this.name = name;
-		this.listOfIngredients = ingredients;
+		this.listOfIngredients = new LinkedList<>();
+		this.mapQuantity = new HashMap<>();
+		this.mapUnits = new HashMap<>();
+		this.listOfSteps = new LinkedList<>();
+		
+	}
+	
+	/**
+	 * Constructor to create a page which contains a recipe and store in the database
+	 * @param name the name of the recipe
+	 * @param sessionDatabase the session establish to the database
+	 */
+	public Page(String name, SessionDatabase sessionDatabase) {
+		
+		this(name);
+		this.sessionDatabase = sessionDatabase;
+		
+		DAORecipe daoRecipe = new DAORecipe(this.sessionDatabase);
+		daoRecipe.create(name);
 		
 	}
 	
@@ -102,10 +120,20 @@ public class Page extends AbstractListModel<Ingredient> {
 		return this.listOfIngredients.size();
 		
 	}
-
+	
 	@Override
 	public String toString() {
 		return this.name;
+	}
+	
+	/**
+	 * Method to delete the Page
+	 */
+	public void delete() {
+		
+		DAORecipe daoRecipe = new DAORecipe(this.sessionDatabase);
+		daoRecipe.delete(this.name);
+		
 	}
 	
 }

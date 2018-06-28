@@ -260,8 +260,13 @@ public class DAORecipe {
 			pstmt.setString(1, name);
 			ResultSet res = pstmt.executeQuery();
 			
+			// Calculate the number of line in the table
+			int i = 0;
+			while (res.next())
+				i++;
+			
 			// Test if there is one or more recipe with this name in the database
-			boolean exist = res.getFetchSize() >= 1;
+			boolean exist = i >= 1;
 			
 			pstmt.close();
 			

@@ -35,12 +35,17 @@ public class DAORecipe {
 		
 		try {
 			
-			String insertRecipe = "INSERT INTO Recipe (name) VALUES(?)";
+			if (!existRecipe(name)) {
 			
-			PreparedStatement pstmt = this.session.getConnection().prepareStatement(insertRecipe);
-			pstmt.setString(1, name);
-			pstmt.executeUpdate();
-			pstmt.close();
+				String insertRecipe = "INSERT INTO Recipe (name) VALUES(?)";
+				
+				
+				PreparedStatement pstmt = this.session.getConnection().prepareStatement(insertRecipe);
+				pstmt.setString(1, name);
+				pstmt.executeUpdate();
+				pstmt.close();
+			
+			}
 			
 		} catch (SQLException e) {
 			
@@ -93,16 +98,16 @@ public class DAORecipe {
 	
 	/**
 	 * Method to delete a recipe in the database
-	 * @param recipe the recipe
+	 * @param name the name of the recipe
 	 */
-	public void delete(Recipe recipe) {
+	public void delete(String name) {
 		
 		try {
 			
-			String deleteRecipe = "DELETE FROM Recipe WHERE numRecipe=?";
+			String deleteRecipe = "DELETE FROM Recipe WHERE name=?";
 			
 			PreparedStatement pstmt = this.session.getConnection().prepareStatement(deleteRecipe);
-			pstmt.setInt(1, recipe.getNumRecipe());
+			pstmt.setString(1, name);
 			pstmt.executeUpdate();
 			pstmt.close();
 			
@@ -237,6 +242,47 @@ public class DAORecipe {
 			
 		}
 		
+		
+	}
+	
+	/**
+	 * Method to search if a recipe exist in the database
+	 * @param name of the recipe
+	 * @return true if the recipe exist or false if not
+	 */
+	public boolean existRecipe(String name) {
+		
+		try {
+			
+			String selectRecipe = "SELECT * FROM Recipe WHERE name=?";
+			
+			PreparedStatement pstmt = this.session.getConnection().prepareStatement(selectRecipe);
+			pstmt.setString(1, name);
+			ResultSet res = pstmt.executeQuery();
+			
+			// Test if there is one or more recipe with this name in the database
+			boolean exist = res.getFetchSize() >= 1;
+			
+			pstmt.close();
+			
+			return exist;
+			
+		} catch (SQLException e) {
+			
+			// If the table doesn't exist, we create the table
+			if(e.getErrorCode() == 1146) {
+				
+				createTable();
+				
+			} else {
+
+				System.out.println("Erreur SQL -> " + e.getMessage());
+				
+			}
+			
+			return false;
+			
+		}
 		
 	}
 	

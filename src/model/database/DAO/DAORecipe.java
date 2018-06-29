@@ -180,7 +180,7 @@ public class DAORecipe {
 		
 		try {
 			
-			String selectRecipe = "SELECT * FROM Recipe WHERE name=" + name;
+			String selectRecipe = "SELECT * FROM Recipe WHERE name='" + name + "'";
 			
 			Statement stmt = this.session.getConnection().createStatement();
 			ResultSet res = stmt.executeQuery(selectRecipe);

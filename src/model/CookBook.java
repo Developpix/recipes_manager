@@ -13,7 +13,9 @@ import java.util.List;
 import javax.swing.AbstractListModel;
 
 import model.database.BD.SessionDatabase;
+import model.database.Bean.Ingredient;
 import model.database.Bean.Recipe;
+import model.database.DAO.DAOIngredient;
 import model.database.DAO.DAORecipe;
 import model.files.Page;
 
@@ -22,6 +24,7 @@ public class CookBook extends AbstractListModel<Page> {
 	private String dataMod;
 	private SessionDatabase sessionDatabase;
 	private List<Page> listOfPages;
+	private List<Ingredient> listOfIngredients;
 	private File saveFile;
 	
 	/**
@@ -32,6 +35,7 @@ public class CookBook extends AbstractListModel<Page> {
 		
 		this.dataMod = "DATABASE";
 		this.listOfPages = new LinkedList<>();
+		this.listOfIngredients = new LinkedList<>();
 		this.sessionDatabase = sessionDatabase;
 		
 	}
@@ -106,11 +110,37 @@ public class CookBook extends AbstractListModel<Page> {
 				
 			}
 			
+			DAOIngredient daoIngredient = new DAOIngredient(this.sessionDatabase);
+			this.listOfIngredients = daoIngredient.read();
+			
 		} else if (this.dataMod.equals("FILE")) {
 			
 			// TODO
 			
 		}
+		
+	}
+	
+	/**
+	 * Method to get a list of ingredient not added in the page
+	 * @param page the page
+	 * @return the list of ingredients not contained in the page
+	 */
+	public Ingredient[] getAllIngredientsNotAdded(Page page) {
+		
+		List<Ingredient> list = new LinkedList<>();
+		list.addAll(this.listOfIngredients);
+		list.removeAll(page.getIngredients());
+		
+		Ingredient[] ingredientsTab = new Ingredient[list.size()];
+		
+		for(int i = 0; i < list.size(); i++) {
+			
+			ingredientsTab[i] = list.get(i);
+			
+		}
+		
+		return ingredientsTab;
 		
 	}
 	

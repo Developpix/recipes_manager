@@ -105,6 +105,69 @@ public class Page extends AbstractListModel<Ingredient> {
 		this.listOfIngredients.add(ingredient);
 		
 	}
+	
+	/**
+	 * Method to add an association with an ingredient
+	 * @param ingredient the ingredient
+	 * @param quantity the quantity
+	 * @param unit the unit for the quantity
+	 */
+	public void addIngredient(Ingredient ingredient, int quantity, String unit) {
+		
+		addIngredient(ingredient);
+
+		// If the application is connected to a database
+		if(this.sessionDatabase != null) {
+		
+			DAORecipeIngredientAssociation daoAssociation = new DAORecipeIngredientAssociation(this.sessionDatabase);
+			RecipeIngredientAssociation association = new RecipeIngredientAssociation(this.recipe.getNumRecipe(),
+					ingredient.getNumIngredient(),
+					quantity,
+					unit);
+			daoAssociation.create(association);
+			
+		}
+			
+	}
+	
+	/**
+	 * Method to delete the Page
+	 */
+	public void delete() {
+		
+		DAORecipe daoRecipe = new DAORecipe(this.sessionDatabase);
+		daoRecipe.delete(this.name);
+		
+	}
+	
+	/**
+	 * Method to remove an association with an ingredient
+	 * @param ingredient the ingredient
+	 */
+	public void deleteIngredient(Ingredient ingredient) {
+		
+		this.listOfIngredients.add(ingredient);
+		
+		// If the application is connected to a database
+		if(this.sessionDatabase != null) {
+		
+			DAORecipeIngredientAssociation daoAssociation = new DAORecipeIngredientAssociation(this.sessionDatabase);
+			RecipeIngredientAssociation association = daoAssociation.read(this.recipe, ingredient);
+			daoAssociation.delete(association);
+			
+		}
+		
+	}
+	
+	/**
+	 * Method to get the list of ingredients associated to the recipe
+	 * @return the list of ingredients
+	 */
+	public List<Ingredient> getIngredients() {
+		
+		return this.listOfIngredients;
+		
+	}
 
 	@Override
 	public Ingredient getElementAt(int index) {
@@ -127,28 +190,6 @@ public class Page extends AbstractListModel<Ingredient> {
 	@Override
 	public String toString() {
 		return this.name;
-	}
-	
-	/**
-	 * Method to delete the Page
-	 */
-	public void delete() {
-		
-		DAORecipe daoRecipe = new DAORecipe(this.sessionDatabase);
-		daoRecipe.delete(this.name);
-		
-	}
-	
-	/**
-	 * Method to remove an association with an ingredient
-	 * @param ingredient the ingredient
-	 */
-	public void deleteIngredient(Ingredient ingredient) {
-		
-		DAORecipeIngredientAssociation daoAssociation = new DAORecipeIngredientAssociation(this.sessionDatabase);
-		RecipeIngredientAssociation association = daoAssociation.read(this.recipe, ingredient);
-		daoAssociation.delete(association);
-		
 	}
 	
 }

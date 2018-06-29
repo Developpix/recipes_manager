@@ -43,3 +43,4 @@ hs_err_pid*
 
 # Package which contains the test class
 src/tests/*
+/bin/

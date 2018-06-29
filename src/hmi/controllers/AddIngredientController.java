@@ -3,16 +3,16 @@ package hmi.controllers;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import hmi.views.CreatePageView;
+import hmi.views.AddIngredientToPageView;
 import hmi.views.ManageRecipesView;
 import model.CookBook;
 
-public class DeletePageController implements ActionListener {
+public class AddIngredientController implements ActionListener {
 
 	private ManageRecipesView view;
 	private CookBook model;
 	
-	public DeletePageController(ManageRecipesView view, CookBook model) {
+	public AddIngredientController(ManageRecipesView view, CookBook model) {
 		
 		this.view = view;
 		this.model = model;
@@ -23,16 +23,12 @@ public class DeletePageController implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		
 		if(this.view.getPageSelected() != null) {
+			// Close the current window
+			this.view.setVisible(false);
+			this.view.dispose();
 			
-			// Delete the page
-			this.view.getPageSelected().delete();
-			
-			// Reload data from the database
-			this.model.load();
-			
-			// Update the list in the view
-			this.view.updatePagesList();
-			
+			// Open the next window
+			new AddIngredientToPageView(this.model, this.view.getPageSelected());
 		}
 		
 	}

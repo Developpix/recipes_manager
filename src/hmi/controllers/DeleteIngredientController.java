@@ -18,11 +18,15 @@ public class DeleteIngredientController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
-		// Remove the association with the ingredient
-		this.view.getPageSelected().deleteIngredient(this.view.getIngredientSelected());
-
-		// Update the JList of Ingredient
-		this.view.updateIngredientsList();
+		if(this.view.getIngredientSelected() != null) {
+			
+			// Remove the association with the ingredient
+			this.view.getPageSelected().deleteIngredient(this.view.getIngredientSelected());
+	
+			// Update the JList of Ingredient
+			this.view.updateIngredientsList();
+			
+		}
 		
 	}
 

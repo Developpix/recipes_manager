@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
+import hmi.controllers.AddIngredientController;
 import hmi.controllers.AddPageController;
 import hmi.controllers.DeleteIngredientController;
 import hmi.controllers.DeletePageController;
@@ -142,6 +143,7 @@ public class ManageRecipesView extends JFrame {
 		panelActionsManageIngredients.setLayout(new GridLayout(1, 2));
 		// Add a button to add a ingredient
 		this.addIngredient = new JButton("Add");
+		this.addIngredient.addActionListener(new AddIngredientController(this, this.model));
 		panelActionsManageIngredients.add(addIngredient);
 		// Add a button to delete a ingredient
 		this.delIngredient = new JButton("Delete");

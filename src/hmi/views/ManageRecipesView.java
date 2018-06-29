@@ -22,6 +22,8 @@ import javax.swing.JTabbedPane;
 import hmi.controllers.AddPageController;
 import hmi.controllers.DeleteIngredientController;
 import hmi.controllers.DeletePageController;
+import hmi.controllers.SelectIngredientController;
+import hmi.controllers.SelectPageController;
 import model.CookBook;
 import model.database.Bean.Ingredient;
 import model.files.Page;
@@ -32,6 +34,9 @@ public class ManageRecipesView extends JFrame {
 	
 	private JList<Page> listPages;
 	private JList<Ingredient> listIngredients;
+
+	private JLabel ingredientNameLabel;
+	private JLabel quantityLabel;
 	
 	private JButton addPage;
 	private JButton delPage;
@@ -46,29 +51,28 @@ public class ManageRecipesView extends JFrame {
 		/*
 		 * Create a main panel and set to the content pane of the JFrame
 		 */
-		JTabbedPane mainPanel = new JTabbedPane();
+		JPanel mainPanel = new JPanel();
+		// Set a border layout to the main panel
+		mainPanel.setLayout(new BorderLayout());
 		this.setContentPane(mainPanel);
-		
-		/*
-		 * Create a panel for the tab ingredients
-		 */
-		JPanel ingredientsPanel = new JPanel();
-		// Add the tab
-		mainPanel.add("Ingredients", ingredientsPanel);
-		// Set a grid layout with 1 line and 3 columns to the panel
-		ingredientsPanel.setLayout(new GridLayout(1, 3));
-		
+
 		/*
 		 * Create a panel for manage the list of the pages
 		 */
 		JPanel panelManagePages = new JPanel();
-		ingredientsPanel.add(panelManagePages);
+		mainPanel.add(panelManagePages, BorderLayout.WEST);
 		// Add a border layout to the panel
 		panelManagePages.setLayout(new BorderLayout());
 		// Add a JLabel, to show that here it's the list of pages, to the north
 		panelManagePages.add(new JLabel("Pages", JLabel.CENTER), BorderLayout.NORTH);
 		// Add a JList which contains the list of recipe, a Page represent a recipe in the CookBook
 		this.listPages = new JList<>(this.model);
+		//If the CookBook is not empty
+		if(this.model.getSize() > 0)
+			// Select the first page by default
+			this.listPages.setSelectedIndex(0);
+		// Add a controller to listen the page selection
+		this.listPages.addListSelectionListener(new SelectPageController(this));
 		// Add the JList in a scroll pane to the panel
 		panelManagePages.add(new JScrollPane(listPages), BorderLayout.CENTER);
 		/*
@@ -89,6 +93,21 @@ public class ManageRecipesView extends JFrame {
 		panelActionsManagePages.add(delPage);
 		
 		/*
+		 * Create a panel for the tab and add it to the main panel
+		 */
+		JTabbedPane tabsPanel = new JTabbedPane();
+		mainPanel.add(tabsPanel, BorderLayout.CENTER);
+		
+		/*
+		 * Create a panel for the tab ingredients
+		 */
+		JPanel ingredientsPanel = new JPanel();
+		// Add the tab
+		tabsPanel.add("Ingredients", ingredientsPanel);
+		// Set a grid layout with 1 line and 3 columns to the panel
+		ingredientsPanel.setLayout(new GridLayout(1, 3));
+		
+		/*
 		 * Create a panel for manage the list of the ingredients
 		 */
 		JPanel panelManageIngredients = new JPanel();
@@ -98,11 +117,19 @@ public class ManageRecipesView extends JFrame {
 		// Add a JLabel, to show that here it's the list of ingredients, to the north
 		panelManageIngredients.add(new JLabel("Ingredients", JLabel.CENTER), BorderLayout.NORTH);
 		// Add a JList which contains the list of ingredient associate to the recipe
-		if(this.model.getSize() > 0)
+		if(this.model.getSize() > 0) {
+			// Associate the list of ingredients to the JList
 			this.listIngredients = new JList<>(this.model.getElementAt(0));
+			// If the list of ingredient is not empty
+			if(this.model.getElementAt(0).getSize() > 0)
+				// Select the first ingredient
+				this.listIngredients.setSelectedIndex(0);
+		} else {
 		// If model contains 0 pages the JList is empty
-		else
 			this.listIngredients = new JList<>();
+		}
+		// Add a controller to listen ingredient's selection
+		this.listIngredients.addListSelectionListener(new SelectIngredientController(this));
 		// Add the JList in a scroll pane to the panel
 		panelManageIngredients.add(new JScrollPane(listIngredients), BorderLayout.CENTER);
 		/*
@@ -126,7 +153,31 @@ public class ManageRecipesView extends JFrame {
 		 * the recipe and the ingredient selected and add this to the tab
 		 */
 		JPanel informationsAboutAssocation = new JPanel();
+		// Add a border layout to the panel
+		informationsAboutAssocation.setLayout(new BorderLayout());
 		ingredientsPanel.add(informationsAboutAssocation);
+		// Add a label for the name of the ingredient
+		// If there is an ingredient in the page selected
+		if(this.listIngredients.getSelectedValue() != null)
+			this.ingredientNameLabel = new JLabel(this.listIngredients.getSelectedValue().getName(), JLabel.CENTER);
+		else
+			this.ingredientNameLabel = new JLabel("", JLabel.CENTER);
+		informationsAboutAssocation.add(this.ingredientNameLabel, BorderLayout.NORTH);
+		// Add a label for the ingredient's quantity
+		// If there is an ingredient in the page selected
+		if(this.listIngredients.getSelectedValue() != null) {
+			// TODO
+			this.quantityLabel = new JLabel("TODO", JLabel.CENTER);
+		} else {
+			this.quantityLabel = new JLabel("", JLabel.CENTER);
+		}
+		informationsAboutAssocation.add(this.quantityLabel, BorderLayout.CENTER);
+		
+		/*
+		 * Create a panel for the tab recipe
+		 */
+		JPanel recipePanel = new JPanel();
+		tabsPanel.addTab("Recipe", recipePanel);
 		
 		/*
 		 * Set preferences for the window
@@ -153,6 +204,44 @@ public class ManageRecipesView extends JFrame {
 	public void updateIngredientsList() {
 		
 		this.listIngredients.updateUI();
+		
+	}
+	
+	/**
+	 * Method to update the ingredient information
+	 */
+	public void updateIngredientInformation() {
+		
+		// If there is an ingredient in the page selected
+		if(this.listIngredients.getSelectedValue() != null)
+			this.ingredientNameLabel.setText(this.listIngredients.getSelectedValue().getName());
+		else
+			this.ingredientNameLabel.setText("");
+		
+		// If there is an ingredient in the page selected
+		if(this.listIngredients.getSelectedValue() != null) {
+			// TODO
+			this.quantityLabel.setText("TODO 2");
+		} else {
+			this.quantityLabel.setText("");
+		}
+		
+	}
+	
+	/**
+	 * Method to reload the JList of ingredients
+	 */
+	public void reloadIngredientsList() {
+		
+		this.listIngredients.setModel(getPageSelected());
+		
+		// If the page contains ingredients
+		if(this.getPageSelected().getSize() > 0) {
+			// Select the first ingredient
+			this.listIngredients.setSelectedIndex(0);
+			
+			updateIngredientInformation();
+		}
 		
 	}
 	

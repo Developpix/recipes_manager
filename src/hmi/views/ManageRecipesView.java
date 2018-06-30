@@ -168,8 +168,9 @@ public class ManageRecipesView extends JFrame {
 		// Add a label for the ingredient's quantity
 		// If there is an ingredient in the page selected
 		if(this.listIngredients.getSelectedValue() != null) {
-			// TODO
-			this.quantityLabel = new JLabel("TODO", JLabel.CENTER);
+			this.quantityLabel = new JLabel(this.listPages.getSelectedValue().getQuantity(this.listIngredients.getSelectedValue())
+					+ " " + this.listPages.getSelectedValue().getUnit(this.listIngredients.getSelectedValue()),
+					JLabel.CENTER);
 		} else {
 			this.quantityLabel = new JLabel("", JLabel.CENTER);
 		}
@@ -222,8 +223,8 @@ public class ManageRecipesView extends JFrame {
 		
 		// If there is an ingredient in the page selected
 		if(this.listIngredients.getSelectedValue() != null) {
-			// TODO
-			this.quantityLabel.setText("TODO 2");
+			this.quantityLabel.setText(this.listPages.getSelectedValue().getQuantity(this.listIngredients.getSelectedValue())
+					+ " " + this.listPages.getSelectedValue().getUnit(this.listIngredients.getSelectedValue()));
 		} else {
 			this.quantityLabel.setText("");
 		}

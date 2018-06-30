@@ -179,6 +179,27 @@ public class Page extends AbstractListModel<Ingredient> {
 		
 	}
 
+	/**
+	 * Method to get the quantity of the ingredient in the recipe
+	 * @param ingredient the ingredient
+	 * @return the quantity
+	 */
+	public int getQuantity(Ingredient ingredient) {
+		
+		return this.mapQuantity.get(ingredient.getName());
+		
+	}
+
+	/**
+	 * Method to get the unit for the quantity of the ingredient in the recipe
+	 * @param ingredient the ingredient
+	 * @return the unit
+	 */
+	public String getUnit(Ingredient ingredient) {
+		
+		return this.mapUnits.get(ingredient.getName());
+		
+	}
 
 	@Override
 	public int getSize() {

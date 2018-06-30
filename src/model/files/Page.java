@@ -115,6 +115,8 @@ public class Page extends AbstractListModel<Ingredient> {
 	public void addIngredient(Ingredient ingredient, int quantity, String unit) {
 		
 		addIngredient(ingredient);
+		this.mapQuantity.put(ingredient.getName(), quantity);
+		this.mapUnits.put(ingredient.getName(), unit);
 
 		// If the application is connected to a database
 		if(this.sessionDatabase != null) {
@@ -146,7 +148,7 @@ public class Page extends AbstractListModel<Ingredient> {
 	 */
 	public void deleteIngredient(Ingredient ingredient) {
 		
-		this.listOfIngredients.add(ingredient);
+		this.listOfIngredients.remove(ingredient);
 		
 		// If the application is connected to a database
 		if(this.sessionDatabase != null) {
@@ -169,16 +171,6 @@ public class Page extends AbstractListModel<Ingredient> {
 		
 	}
 
-	@Override
-	public Ingredient getElementAt(int index) {
-		
-		if(this.listOfIngredients.size() <= 0)
-			return null;
-		else
-			return this.listOfIngredients.get(index);
-		
-	}
-
 	/**
 	 * Method to get the quantity of the ingredient in the recipe
 	 * @param ingredient the ingredient
@@ -198,6 +190,30 @@ public class Page extends AbstractListModel<Ingredient> {
 	public String getUnit(Ingredient ingredient) {
 		
 		return this.mapUnits.get(ingredient.getName());
+		
+	}
+	
+	public String getText() {
+		
+		String text = "";
+		
+		for (Step step : this.listOfSteps) {
+			
+			text += "\t- " + step.getText() + "\n";
+			
+		}
+		
+		return text;
+		
+	}
+
+	@Override
+	public Ingredient getElementAt(int index) {
+		
+		if(this.listOfIngredients.size() <= 0)
+			return null;
+		else
+			return this.listOfIngredients.get(index);
 		
 	}
 

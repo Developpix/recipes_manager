@@ -21,6 +21,9 @@ public class SelectPageController implements ListSelectionListener {
 		// Reload the ingredient list
 		this.view.reloadIngredientsList();
 		
+		// Update the recipe text
+		this.view.updateRecipeText();
+		
 	}
 	
 

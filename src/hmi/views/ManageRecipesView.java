@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 
 import hmi.controllers.AddIngredientController;
 import hmi.controllers.AddPageController;
@@ -36,6 +37,8 @@ public class ManageRecipesView extends JFrame {
 	private JList<Page> listPages;
 	private JList<Ingredient> listIngredients;
 
+	private JTextArea recipeText;
+	
 	private JLabel ingredientNameLabel;
 	private JLabel quantityLabel;
 	
@@ -180,7 +183,23 @@ public class ManageRecipesView extends JFrame {
 		 * Create a panel for the tab recipe
 		 */
 		JPanel recipePanel = new JPanel();
+		// Set a border layout to the panel
+		recipePanel.setLayout(new BorderLayout());
 		tabsPanel.addTab("Recipe", recipePanel);
+		// Create a text area for the text of the recipe
+		this.recipeText = new JTextArea();
+		// If there is a page selected
+		if (this.listPages.getSelectedValue() != null)
+			this.recipeText.setText(this.listPages.getSelectedValue().getText());
+		// Enable cut the line
+		this.recipeText.setLineWrap(true);
+		this.recipeText.setWrapStyleWord(true);
+		// Set the text area is not editable
+		this.recipeText.setEditable(false);
+		recipePanel.add(this.recipeText, BorderLayout.CENTER);
+		// Add a button for modify the list of steps
+		JButton modifyButton = new JButton("Modify");
+		recipePanel.add(modifyButton, BorderLayout.SOUTH);
 		
 		/*
 		 * Set preferences for the window
@@ -266,6 +285,17 @@ public class ManageRecipesView extends JFrame {
 		
 		return this.listIngredients.getSelectedValue();
 		
+	}
+	
+	/**
+	 * Method to update the recipe text
+	 */
+	public void updateRecipeText() {
+		// If there is a page selected
+		if (this.listPages.getSelectedValue() != null)
+			this.recipeText.setText(this.listPages.getSelectedValue().getText());
+		else
+			this.recipeText.setText("");
 	}
 	
 	/**

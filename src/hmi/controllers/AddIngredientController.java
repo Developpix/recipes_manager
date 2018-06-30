@@ -27,8 +27,11 @@ public class AddIngredientController implements ActionListener {
 			this.view.setVisible(false);
 			this.view.dispose();
 			
+			// Set the page edited
+			this.model.editPage(this.view.getPageSelected());
+			
 			// Open the next window
-			new AddIngredientToPageView(this.model, this.view.getPageSelected());
+			new AddIngredientToPageView(this.model);
 		}
 		
 	}

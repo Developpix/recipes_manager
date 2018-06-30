@@ -154,7 +154,7 @@ public class CookBook extends AbstractListModel<Page> {
 		for(int i = 0; i < ingredientsTab.length; i++) {
 			
 			// If the ingredient is not contained in the recipe, we add it in the vector
-			if(page.getIngredients().contains(this.listOfIngredients.get(i)))
+			if(!page.getIngredients().contains(this.listOfIngredients.get(i)))
 				ingredientsTab[i] = this.listOfIngredients.get(i);
 			
 		}

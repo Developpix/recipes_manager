@@ -25,6 +25,7 @@ public class CookBook extends AbstractListModel<Page> {
 	private SessionDatabase sessionDatabase;
 	private List<Page> listOfPages;
 	private List<Ingredient> listOfIngredients;
+	private Page pageEdited;
 	private File saveFile;
 	
 	/**
@@ -63,6 +64,26 @@ public class CookBook extends AbstractListModel<Page> {
 			load();
 			
 		}
+		
+	}
+	
+	/**
+	 * Select a page to edit
+	 * @param page the page which will be edited
+	 */
+	public void editPage(Page page) {
+		
+		this.pageEdited = page;
+		
+	}
+
+	/**
+	 * Method to get the page edited
+	 * @return the page edited
+	 */
+	public Page getPageEdited() {
+		
+		return this.pageEdited;
 		
 	}
 
@@ -126,21 +147,21 @@ public class CookBook extends AbstractListModel<Page> {
 	 * @param page the page
 	 * @return the list of ingredients not contained in the page
 	 */
-	public Ingredient[] getAllIngredientsNotAdded(Page page) {
+	public List<Ingredient> getAllIngredientsNotAdded(Page page) {
 		
 		List<Ingredient> list = new LinkedList<>();
 		list.addAll(this.listOfIngredients);
 		list.removeAll(page.getIngredients());
 		
-		Ingredient[] ingredientsTab = new Ingredient[list.size()];
+		/*Ingredient[] ingredientsTab = new Ingredient[list.size()];
 		
 		for(int i = 0; i < list.size(); i++) {
 			
 			ingredientsTab[i] = list.get(i);
 			
-		}
+		}*/
 		
-		return ingredientsTab;
+		return list;
 		
 	}
 	

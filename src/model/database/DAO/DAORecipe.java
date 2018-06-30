@@ -289,11 +289,13 @@ public class DAORecipe {
 	}
 	
 	/**
-	 * Method to search if a recipe exist in the database
-	 * @param name of the recipe
-	 * @return true if the recipe exist or false if not
+	 * Get the recipe which a specific name stored in the database
+	 * @param name the name of the recipe
+	 * @return the Recipe
 	 */
-	public boolean existRecipe(String name) {
+	public Recipe getRecipe(String name) {
+		
+		Recipe recipe = null;
 		
 		try {
 			
@@ -303,17 +305,10 @@ public class DAORecipe {
 			pstmt.setString(1, name);
 			ResultSet res = pstmt.executeQuery();
 			
-			// Calculate the number of line in the table
-			int i = 0;
 			while (res.next())
-				i++;
-			
-			// Test if there is one or more recipe with this name in the database
-			boolean exist = i >= 1;
+				recipe = new Recipe(res.getInt(1), res.getString(2));
 			
 			pstmt.close();
-			
-			return exist;
 			
 		} catch (SQLException e) {
 			
@@ -328,9 +323,24 @@ public class DAORecipe {
 				
 			}
 			
-			return false;
-			
 		}
+		
+		return recipe;
+		
+	}
+	
+	/**
+	 * Method to search if a recipe exist in the database
+	 * @param name of the recipe
+	 * @return true if the recipe exist or false if not
+	 */
+	public boolean existRecipe(String name) {
+		
+		// If there is one or more recipe with this name in the database
+		if(getRecipe(name) != null)
+			return true;
+		else
+			return false;
 		
 	}
 	

@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import hmi.controllers.CancelAddingIngredientController;
+import hmi.controllers.CreateIngredientController;
 import hmi.controllers.ValidateAddingIngredientController;
 import model.CookBook;
 import model.database.Bean.Ingredient;
@@ -63,6 +64,7 @@ public class AddIngredientToPageView extends JFrame {
 		mainPanel.add(this.unit);
 		// Create a button for create an ingredient
 		JButton createIngredient = new JButton("Create an ingredient");
+		createIngredient.addActionListener(new CreateIngredientController(this, this.model));
 		mainPanel.add(createIngredient);
 		/*
 		 * Create a panel for the actions and set a grid layout with 2 columns

@@ -41,7 +41,7 @@ public class AddIngredientToPageView extends JFrame {
 		 */
 		JPanel mainPanel = new JPanel();
 		// Set a grid layout to the main panel with 8 lines and 1 column
-		mainPanel.setLayout(new GridLayout(7, 1));
+		mainPanel.setLayout(new GridLayout(8, 1));
 		// Set the content pane is the mainPanel
 		this.setContentPane(mainPanel);
 		
@@ -61,6 +61,9 @@ public class AddIngredientToPageView extends JFrame {
 		mainPanel.add(unitLabel);
 		this.unit = new JTextField();
 		mainPanel.add(this.unit);
+		// Create a button for create an ingredient
+		JButton createIngredient = new JButton("Create an ingredient");
+		mainPanel.add(createIngredient);
 		/*
 		 * Create a panel for the actions and set a grid layout with 2 columns
 		 */
@@ -68,12 +71,12 @@ public class AddIngredientToPageView extends JFrame {
 		actionsPanel.setLayout(new GridLayout(1, 2));
 		mainPanel.add(actionsPanel);
 		// Create a button to cancel and validate the adding
-		JButton cancelButton = new JButton("Cancel");
-		cancelButton.addActionListener(new CancelAddingIngredientController(this, this.model));
-		actionsPanel.add(cancelButton);
 		JButton addButton = new JButton("Add");
 		addButton.addActionListener(new ValidateAddingIngredientController(this, this.model));
 		actionsPanel.add(addButton);
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new CancelAddingIngredientController(this, this.model));
+		actionsPanel.add(cancelButton);
 		
 		/*
 		 * Set preferences for the window

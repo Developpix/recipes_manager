@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import hmi.controllers.CancelIngredientCreationController;
+import hmi.controllers.ValidateIngredientCreationController;
 import model.CookBook;
 
 public class CreateIngredientView extends JFrame {
@@ -37,9 +39,11 @@ public class CreateIngredientView extends JFrame {
 		mainPanel.add(this.name);
 		// Create a button for validate the creation
 		JButton createButton = new JButton("Create");
+		createButton.addActionListener(new ValidateIngredientCreationController(this, this.model));
 		mainPanel.add(createButton);
 		// Create a button for cancel creation
 		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(new CancelIngredientCreationController(this, this.model));
 		mainPanel.add(cancelButton);
 
 		/*

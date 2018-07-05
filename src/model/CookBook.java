@@ -68,6 +68,22 @@ public class CookBook extends AbstractListModel<Page> {
 	}
 	
 	/**
+	 * Create a Page for a recipe
+	 * @param name the name of the recipe
+	 */
+	public void createIngredient(String name) {
+		
+		if(this.dataMod.equals("DATABASE")) {
+			
+			DAOIngredient daoIngredient = new DAOIngredient(this.sessionDatabase);
+			daoIngredient.create(name);
+			load();
+			
+		}
+		
+	}
+	
+	/**
 	 * Select a page to edit
 	 * @param page the page which will be edited
 	 */

@@ -29,16 +29,16 @@ public class DAOIngredient {
 	
 	/**
 	 * Method to insert a ingredient in the database
-	 * @param ingredient the ingredient which will be insert
+	 * @param the name of the ingredient which will be insert
 	 */
-	public void create(Ingredient ingredient) {
+	public void create(String name) {
 		
 		try {
 			
 			String insertIngredient = "INSERT INTO Ingredient (name) VALUES(?)";
 			
 			PreparedStatement pstmt = this.session.getConnection().prepareStatement(insertIngredient);
-			pstmt.setString(1, ingredient.getName());
+			pstmt.setString(1, name);
 			pstmt.executeUpdate();
 			pstmt.close();
 			
@@ -48,7 +48,7 @@ public class DAOIngredient {
 			if(e.getErrorCode() == 1146) {
 				
 				createTable();
-				create(ingredient);
+				create(name);
 				
 			} else {
 

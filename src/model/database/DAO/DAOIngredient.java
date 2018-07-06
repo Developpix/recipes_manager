@@ -6,12 +6,17 @@
 
 package model.database.DAO;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
-import model.database.BD.*;
-import model.database.Bean.*;
+import model.database.BD.SessionDatabase;
+import model.database.Bean.Ingredient;
+import model.database.Bean.Recipe;
+import model.database.Bean.RecipeIngredientAssociation;
 
 public class DAOIngredient {
 
@@ -48,6 +53,7 @@ public class DAOIngredient {
 			if(e.getErrorCode() == 1146) {
 				
 				createTable();
+				System.out.println("Table 'Ingredient' doesn't exist");
 				create(name);
 				
 			} else {
@@ -196,8 +202,15 @@ public class DAOIngredient {
 			// If the table doesn't exist, we create the table
 			if(e.getErrorCode() == 1146) {
 				
-				createTable();
-				
+				if(e.getMessage().contains("RecipeIngredientAssociation")) {
+					DAORecipeIngredientAssociation association = new DAORecipeIngredientAssociation(this.session);
+					association.createTable();
+				} else if (e.getMessage().contains("Ingredient")) {
+					createTable();
+				} else {
+					System.out.println("Erreur SQL -> " + e.getMessage());
+				}
+			
 			} else {
 
 				System.out.println("Erreur SQL -> " + e.getMessage());
@@ -226,6 +239,8 @@ public class DAOIngredient {
 			Statement stmt = this.session.getConnection().createStatement();
 			
 			stmt.executeQuery(createTable);
+			
+			System.out.println("Table créer");
 			
 			stmt.close();
 			

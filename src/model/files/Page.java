@@ -78,6 +78,7 @@ public class Page extends AbstractListModel<Ingredient> {
 		DAOIngredient daoIngredient = new DAOIngredient(this.sessionDatabase);
 		this.listOfIngredients = daoIngredient.read(recipe);
 		
+		this.listOfIngredients = new LinkedList<>();
 		this.mapQuantity = new HashMap<>();
 		this.mapUnits = new HashMap<>();
 		

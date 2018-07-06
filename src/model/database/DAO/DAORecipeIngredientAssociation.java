@@ -38,8 +38,8 @@ public class DAORecipeIngredientAssociation {
 			String insertAssociation = "INSERT INTO RecipeIngredientAssociation VALUES(?, ?, ?, ?)";
 			
 			PreparedStatement pstmt = this.session.getConnection().prepareStatement(insertAssociation);
-			pstmt.setInt(1, association.getNumIngredient());
-			pstmt.setInt(2, association.getNumRecipe());
+			pstmt.setInt(1, association.getNumRecipe());
+			pstmt.setInt(2, association.getNumIngredient());
 			pstmt.setInt(3, association.getQuantity());
 			pstmt.setString(4, association.getUnit());
 			pstmt.executeUpdate();

@@ -200,7 +200,7 @@ public class Page extends AbstractListModel<Ingredient> {
 		
 		for (Step step : this.listOfSteps) {
 			
-			text += "\t- " + step.getText() + "\n";
+			text += "- " + step.getText() + "\n";
 			
 		}
 		

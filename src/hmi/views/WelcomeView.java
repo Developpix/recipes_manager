@@ -72,7 +72,7 @@ public class WelcomeView extends JFrame {
 		// Add a label for the type
 		panelTypeDatabase.add(new JLabel("Type of the database :", JLabel.CENTER));
 		// Create a list of the types
-		String[] listOfTypes = {"MySQL", "MariaDB", "Oracle"};
+		String[] listOfTypes = {"MySQL", "MariaDB"};
 		// Add a JComboBox to select the type of the database
 		typeOfDatabase = new JComboBox(listOfTypes);
 		panelTypeDatabase.add(typeOfDatabase);
